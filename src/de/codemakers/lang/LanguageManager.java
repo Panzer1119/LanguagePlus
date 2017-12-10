@@ -135,7 +135,7 @@ public class LanguageManager {
         LANGUAGE_RELOADERS.forEach(LanguageReloader::reloadLanguage0);
     }
 
-    public static final boolean addLanguageRelaoder(LanguageReloader languageReloader) {
+    public static final boolean addLanguageReloader(LanguageReloader languageReloader) {
         return LANGUAGE_RELOADERS.add(languageReloader);
     }
 
