@@ -114,6 +114,10 @@ public class LanguageManager {
         return temp.toArray(new String[temp.size()]);
     }
 
+    public static final void setLanguage(String text) {
+        ACTIVE_LANGUAGE = ofString(text);
+    }
+
     public static final String getLang(String key, String defaultValue) {
         if (ACTIVE_LANGUAGE == null) {
             return getLang(DEFAULT_LANGUAGE, key, defaultValue);
