@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
  */
 public class LanguageManager {
 
-    private static final String LANGUAGE_INFO_FILE = "/de/codemakers/lang/language-codes-full_csv.csv";
-    private static final String STANDARD_LANGUAGE_PATH = "/de/codemakers/lang";
+    public static final AdvancedFile LANGUAGE_FOLDER = new AdvancedFile("de", "codemakers", "lang");
+    private static final AdvancedFile LANGUAGE_INFO_FILE = new AdvancedFile(LANGUAGE_FOLDER, "language-codes-full_csv.csv");
     private static final String LANGUAGE_INFO_SEPARATOR = ",";
     private static final String COMMENT = "#";
     private static final List<LanguageReloader> LANGUAGE_RELOADERS = new ArrayList<>();
@@ -41,13 +41,19 @@ public class LanguageManager {
 
     static {
         loadLanguageInfo(LANGUAGE_INFO_FILE);
-        ofResources(STANDARD_LANGUAGE_PATH, true, false);
+        /*
+        if (LANGUAGE_FOLDER.exists()) {
+            ofFolder(LANGUAGE_FOLDER, true, false); //FIXME
+        } else {
+            Logger.logErr("The standard path \"%s\" for the languages does not exist", null, LANGUAGE_FOLDER);
+        }
+         */
         setLanguage("EN");
     }
 
-    private static final void loadLanguageInfo(String language_info_file) {
+    private static final void loadLanguageInfo(AdvancedFile language_info_file) {
         try {
-            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(LanguageManager.class.getResourceAsStream(language_info_file), StandardCharsets.UTF_8));
+            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(language_info_file.createInputStream(), StandardCharsets.UTF_8));
             LANGUAGES.clear();
             bufferedReader.lines().filter((line) -> line.contains(LANGUAGE_INFO_SEPARATOR) && !line.startsWith(COMMENT)).map((line) -> split(line, LANGUAGE_INFO_SEPARATOR)).filter((info) -> info.length == 6).map((info) -> new Language(info[0], info[1], info[2], info[3], info[4], info[5])).forEach(LANGUAGES::add);
             bufferedReader.close();
