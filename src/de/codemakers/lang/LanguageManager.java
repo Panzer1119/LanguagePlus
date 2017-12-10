@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class LanguageManager {
 
     private static final String LANGUAGE_INFO_FILE = "/de/codemakers/lang/language-codes-full_csv.csv";
+    private static final String STANDARD_LANGUAGE_PATH = "/de/codemakers/lang";
     private static final String LANGUAGE_INFO_SEPARATOR = ",";
     private static final String COMMENT = "#";
     private static final List<LanguageReloader> LANGUAGE_RELOADERS = new ArrayList<>();
@@ -40,6 +41,8 @@ public class LanguageManager {
 
     static {
         loadLanguageInfo(LANGUAGE_INFO_FILE);
+        ofResources(STANDARD_LANGUAGE_PATH, true, false);
+        setLanguage("EN");
     }
 
     private static final void loadLanguageInfo(String language_info_file) {
