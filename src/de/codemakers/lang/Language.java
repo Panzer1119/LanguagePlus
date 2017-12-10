@@ -74,6 +74,7 @@ public class Language {
             return false;
         }
     };
+    private final LanguageContainer languageContainer = new LanguageContainer(this);
 
     public Language(String alpha3_b, String alpha3_t, String alpha2, String english, String french, String german) {
         this.alpha3_b = alpha3_b;
@@ -116,13 +117,17 @@ public class Language {
         return aliases;
     }
 
+    public final LanguageContainer getLanguageContainer() {
+        return languageContainer;
+    }
+
     @Override
     public final boolean equals(Object object) {
         if (object == null) {
             return false;
         }
         if (this == object) {
-            //return true;
+            return true;
         }
         if (object instanceof Language) {
             final Language language = (Language) object;
