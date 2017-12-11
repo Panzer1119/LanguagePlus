@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
  */
 public class LanguageManager {
 
-    public static final AdvancedFile LANGUAGE_FOLDER = new AdvancedFile("de", "codemakers", "lang");
-    private static final AdvancedFile LANGUAGE_INFO_FILE = new AdvancedFile(LANGUAGE_FOLDER, "language-codes-full_csv.csv");
+    public static final AdvancedFile LANGUAGE_FOLDER = new AdvancedFile(true, "", "de", "codemakers", "lang");
+    private static final AdvancedFile LANGUAGE_INFO_FILE = new AdvancedFile(true, LANGUAGE_FOLDER, "language-codes-full_csv.csv");
     private static final String LANGUAGE_INFO_SEPARATOR = ",";
     private static final String COMMENT = "#";
     private static final List<LanguageReloader> LANGUAGE_RELOADERS = new ArrayList<>();
@@ -43,11 +43,11 @@ public class LanguageManager {
         loadLanguageInfo(LANGUAGE_INFO_FILE);
         /*
         if (LANGUAGE_FOLDER.exists()) {
-            ofFolder(LANGUAGE_FOLDER, true, false); //FIXME
+            ofFolder(LANGUAGE_FOLDER, true, false);
         } else {
             Logger.logErr("The standard path \"%s\" for the languages does not exist", null, LANGUAGE_FOLDER);
         }
-         */
+        */
         setLanguage("EN");
     }
 
@@ -185,7 +185,7 @@ public class LanguageManager {
             Logger.logErr("Error while loading language from resource, path is invalid", null);
             return;
         }
-        ofFile(new AdvancedFile(path), overwrite, append);
+        ofFile(new AdvancedFile(true, path), overwrite, append);
     }
 
     public static final void ofResources(String path, boolean overwrite, boolean append) {
@@ -193,7 +193,7 @@ public class LanguageManager {
             Logger.logErr("Error while loading languages from resources, path is invalid", null);
             return;
         }
-        ofFolder(new AdvancedFile(path), overwrite, append);
+        ofFolder(new AdvancedFile(true, path), overwrite, append);
     }
 
     public static final void ofFile(AdvancedFile file, boolean overwrite, boolean append) {
